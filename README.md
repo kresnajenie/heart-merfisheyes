@@ -1,2 +1,2 @@
 # fishtest
-This is the cleaned code of fisheyes-fe
+This is the 2D cleaned code of fisheyes-fe
