@@ -41,6 +41,16 @@ export class SceneInitializer {
         
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
+        // Disable rotation
+        this.controls.enableRotate = false;
+
+        // Set panning to left mouse button
+        this.controls.mouseButtons = {
+            LEFT: THREE.MOUSE.PAN,
+            MIDDLE: THREE.MOUSE.DOLLY,
+            RIGHT: THREE.MOUSE.ROTATE
+        };
+
         // controls.target.copy(sharedTarget); // Initially set target for cameraOne
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.25;
@@ -347,7 +357,7 @@ export class SceneInitializer {
             }
 
             //plot projection
-            proj.position.set(jsonData[i]["global_sphere0_norm"] * mod, jsonData[i]["global_sphere1_norm"] * mod, jsonData[i]["global_sphere2_norm"] * mod);
+            proj.position.set(jsonData[i]["X_spatial0_norm"] * mod, jsonData[i]["X_spatial1_norm"] * mod, 0 * mod);
             proj.updateMatrix();
             this.instancedMesh.setMatrixAt(i, proj.matrix);
             this.instancedMesh.setColorAt(i, color);
@@ -375,22 +385,22 @@ export class SceneInitializer {
         requestAnimationFrame(this.animate);
         this.controls.update(); // Only needed if controls.enableDamping is true
         // Assume your instanced mesh is global or accessible within this scope
-        const cameraQuaternion = this.camera.quaternion;
+        // const cameraQuaternion = this.camera.quaternion;
         let jsonData = MatrixState.value.items;
 
-        for (let i = 0; i < jsonData.length * 2; i++) {
-            const matrix = new THREE.Matrix4();
-            const position = new THREE.Vector3();
-            const scale = new THREE.Vector3();
+        // for (let i = 0; i < jsonData.length * 2; i++) {
+        //     const matrix = new THREE.Matrix4();
+        //     const position = new THREE.Vector3();
+        //     const scale = new THREE.Vector3();
 
-            // Extract position and scale from the current instance matrix
-            this.instancedMesh.getMatrixAt(i, matrix);
-            matrix.decompose(position, new THREE.Quaternion(), scale);
+        //     // Extract position and scale from the current instance matrix
+        //     this.instancedMesh.getMatrixAt(i, matrix);
+        //     matrix.decompose(position, new THREE.Quaternion(), scale);
 
-            // Rebuild the matrix using the camera's quaternion for rotation
-            matrix.compose(position, cameraQuaternion, scale);
-            this.instancedMesh.setMatrixAt(i, matrix);
-        }
+        //     // Rebuild the matrix using the camera's quaternion for rotation
+        //     matrix.compose(position, cameraQuaternion, scale);
+        //     this.instancedMesh.setMatrixAt(i, matrix);
+        // }
 
         this.instancedMesh.instanceMatrix.needsUpdate = true; // Important!
         this.renderer.render(this.scene, this.camera);

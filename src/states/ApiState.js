@@ -7,13 +7,12 @@ const apiData = {
     columns: [
         'X_umap0_norm',
         'X_umap1_norm',
-        'global_sphere0_norm',
-        'global_sphere1_norm',
-        'global_sphere2_norm',
+        'X_spatial0_norm',
+        'X_spatial1_norm',
         'clusters',
     ],
 
-    prefix: params.has("prefix") ? params.get("prefix") : "75pe",
+    prefix: "cbm5ptb",
     pallete: {},
     listPalette: [], // list version of palette
     palleteColumn: "clusters_pal",
