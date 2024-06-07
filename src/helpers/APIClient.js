@@ -2,29 +2,41 @@
 // Function to fetch data from the API and return an Observable using async/await
 export async function fetchDataFromAPI(columnName, prefix) {
     // const response = await fetch(`http://localhost:8000/getdata?data=${prefix}&gene=${columnName}`);
-    const response = await fetch(`https://fisheyes.techkyra.com/getdata?data=${prefix}&gene=${columnName}`);
+    // const response = await fetch(`https://fisheyes.techkyra.com/getdata?data=${prefix}&gene=${columnName}`);
+    const response = await fetch(`https://fisheyes.techkyra.com/gget-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
+    // const response = await fetch(`http://localhost:8000/get-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
+    
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json(); // Wait for the JSON conversion
 
     // no data available
-    if (data === null) {
+    if (data === undefined || data.gene_values == undefined) {
         return '[]';
     }
 
-    const list = ['clusters', 'clusters_pal', 'genes', 'hierarchical_clusters'];
-    const searchTerm = data._id;
+    let _d = data.gene_values.split(',').filter(item => item !== "");
 
-    const exists = list.includes(searchTerm);
+    const list = ['clusters', 'clusters_pal', 'genes', 'hierarchical_clusters'];
+
+    const exists = list.includes(columnName);
+    console.log(columnName)
+    console.log(typeof columnName)
+    console.log(exists)
 
     // console.log(columnName, prefix)
-    if (exists) {
+    if (exists == true) {
         // console.log(data["values"])
-        return data["values"]
+        console.log(_d)
+        return _d
     } else {
-        const floatList = data.values.map(item => parseFloat(item));
+        _d.shift();
+        console.log("float")
+
+        let floatList = _d.map(item => parseFloat(item));
         // console.log(floatList)
+        console.log(floatList)
         return floatList
     }
 }
