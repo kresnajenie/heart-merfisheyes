@@ -12,6 +12,7 @@ const apiData = {
         'clusters',
     ],
 
+    prefixOptions: ["cbm5ptb", "cbm5sal"],
     prefix: params.has("prefix") ? params.get("prefix") : "cbm5ptb",
     pallete: {},
     listPalette: [], // list version of palette
