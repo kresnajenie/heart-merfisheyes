@@ -3,7 +3,7 @@
 export async function fetchDataFromAPI(columnName, prefix) {
     // const response = await fetch(`http://localhost:8000/getdata?data=${prefix}&gene=${columnName}`);
     // const response = await fetch(`https://fisheyes.techkyra.com/getdata?data=${prefix}&gene=${columnName}`);
-    const response = await fetch(`https://fisheyes.techkyra.com/gget-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
+    const response = await fetch(`https://cb-backend.techkyra.com/get-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
     // const response = await fetch(`http://localhost:8000/get-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
     
     if (!response.ok) {
@@ -29,14 +29,17 @@ export async function fetchDataFromAPI(columnName, prefix) {
     if (exists == true) {
         // console.log(data["values"])
         console.log(_d)
+        _d.shift()
         return _d
     } else {
+        if (columnName == "clusters") {
+            console.log("sini bang")
+        }
         _d.shift();
         console.log("float")
 
         let floatList = _d.map(item => parseFloat(item));
         // console.log(floatList)
-        console.log(floatList)
         return floatList
     }
 }

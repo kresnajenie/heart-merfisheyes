@@ -9,9 +9,8 @@ export async function loadPallete() {
     const pal_col = ApiState.value.palleteColumn;
     try {
         const data = await fetchDataFromAPI(pal_col, prefix); 
-        console.log(data)
+        // console.log(data)
         // Remove the first element
-        data.shift();
 
         // Initialize an empty object for the dictionary
         let dictionary = {};
@@ -34,7 +33,6 @@ export async function loadPallete() {
 export async function loadGenes() {
     try {
         const data = await fetchDataFromAPI("genes", prefix); 
-        data.shift();
 
         updateGenes(data);
     } catch (error) {
