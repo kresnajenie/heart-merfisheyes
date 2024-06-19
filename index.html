@@ -32,12 +32,13 @@
     <script type="module" src="/src/main.js"></script>
 
     <script type="module">
-        import { selectPrefix } from "/src/helpers/Prefix.js";
+        import { loadPrefixOptions, selectPrefix } from "/src/helpers/Prefix.js";
         import { toggleCellFilter, toggleGeneFilter, toggleButton } from "/src/helpers/ToggleFilters.js"
         import { toggleMode } from "/src/helpers/Filtering/Gene.js"
 
         $(function () {
             $(".navbar").load("/src/ui/Navbar/navbar.html", () => {
+                loadPrefixOptions()
                 selectPrefix()
             });
         });
@@ -66,6 +67,10 @@
     <nav class="sidenav navbar navbar-expand-lg navbar-dark bg-dark" data-mdb-sidenav-init data-mdb-right="true"></nav>
     <!-- filter and toggles -->
     <div class="filter"></div>
+
+    <footer>
+        <p>&copy; 2024 Bintu Lab UCSD. <br> Created by Ignatius Jenie, Edward Lin, Serena Chuang.</p>
+    </footer>
 </body>
 
 </html>

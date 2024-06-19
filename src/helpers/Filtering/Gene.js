@@ -200,7 +200,13 @@ export const showGeneFilters = () => {
         SelectedState.value.selectedGenes.forEach((type, index) => {
 
             const f = document.createElement("p");
-            f.style.color = index === 0 ? 'magenta' : 'green';
+            
+            if (SelectedState.value.selectedGenes.length === 1) {
+                f.style.color = 'white';
+            } else {
+                f.style.color = index === 0 ? 'green' : 'magenta';
+            }
+
             f.style.fontStyle = 'italic'
             f.style.fontWeight = 'bold'
             f.innerHTML = type;

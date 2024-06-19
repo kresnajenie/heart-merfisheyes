@@ -12,8 +12,8 @@ const apiData = {
         'clusters',
     ],
 
-    // prefix: params.has("prefix") ? params.get("prefix") : "cbm5ptb",
-    prefix: params.has("prefix") ? params.get("prefix") : "c5sal",
+    prefixOptions: ["cbm5ptb", "cbm5sal"],
+    prefix: params.has("prefix") ? params.get("prefix") : "cbm5ptb",
     pallete: {},
     listPalette: [], // list version of palette
     palleteColumn: "clusters_pal",
