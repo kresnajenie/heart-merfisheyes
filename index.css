@@ -14,6 +14,15 @@ body * {
     visibility: hidden;
 }
 
+a:link, a:visited {
+    color: white;
+    text-decoration: underline;
+}
+
+a:hover, a:focus, a:active {
+    color: gray;
+    text-decoration: underline;
+}
 footer {
     position: absolute;
     bottom: 0;    
@@ -28,3 +37,4 @@ footer p {
     font-size: 13.5px;
     color: white;
 }
+
