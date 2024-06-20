@@ -13,7 +13,7 @@ const apiData = {
     ],
 
     prefixOptions: ["c5sal", "c5ptb","8week", "4week"],
-    prefix: params.has("prefix") ? params.get("prefix") : "c5sal",
+    prefix: params.has("prefix") ? params.get("prefix") : "8week",
     pallete: {},
     listPalette: [], // list version of palette
     palleteColumn: "clusters_pal",
