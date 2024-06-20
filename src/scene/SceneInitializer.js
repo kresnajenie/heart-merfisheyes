@@ -214,21 +214,7 @@ export class SceneInitializer {
 
             updateLoadingState(false);
         });
-
-        ButtonState.pipe(
-            map(state => state.cameraPositionZ),
-            distinctUntilChanged()
-        ).subscribe(async items => {
-            console.log("Zoom", items);
-            console.log(ButtonState.value.cameraPositionZ);
-
-            if (ButtonState.value.cameraPositionZ) {
-                await this.updateInstancedMesh(ButtonState.value.cameraPositionZ);
-            } else {
-                await this.updateInstancedMesh([]);
-            }
-        })
-
+        
         ButtonState.pipe(
             map(state => state.genePercentile),
             distinctUntilChanged()
