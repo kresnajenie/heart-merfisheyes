@@ -9,19 +9,21 @@ export async function loadPallete() {
     const pal_col = ApiState.value.palleteColumn;
     try {
         const data = await fetchDataFromAPI(pal_col, prefix); 
-        // console.log(data)
         // Remove the first element
+        console.log(data)
 
         // Initialize an empty object for the dictionary
         let dictionary = {};
 
         // Iterate over the list and split each string to create key-value pairs
         data.forEach(item => {
+            console.log(item)
             let [key, value] = item.split(':');
             key = key.replace(/'/g, '').trim();  // Remove quotes and trim whitespace
             value = value.replace(/'/g, '').trim();  // Remove quotes and trim whitespace
             dictionary[key] = value;
         });
+        console.log(dictionary)
 
         updateDataPalette(dictionary);
 
