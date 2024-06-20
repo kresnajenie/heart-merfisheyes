@@ -278,7 +278,6 @@ export class SceneInitializer {
         let dotSize = ButtonState.value.dotSize;
         let smallDotSize = Math.floor(dotSize / 5);
 
-        this.camera.position.z = ButtonState.value.cameraPositionZ;
         let genePercentile = ButtonState.value.genePercentile;
 
         if (genes.length > 0) {
