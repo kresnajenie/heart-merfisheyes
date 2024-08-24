@@ -26,11 +26,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         await loadGenes();
         // console.log(ApiState.value.genes);
 
-        await loadGroups();
+        // await loadGroups();
         // console.log(ApiState.value.groups);
 
-        const sceneContainer = document.body;
-        new SceneInitializer(sceneContainer);
+
 
         // dictionary of all search paramaters in url
         const url = new URL(window.location);
@@ -70,6 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         createGeneRadio(ApiState.value.genes);
         clearGenes();
         geneSearch();
+
+        const sceneContainer = document.body;
+        new SceneInitializer(sceneContainer);
 
     } catch (err) {
         console.error('Failed to load data:', err);

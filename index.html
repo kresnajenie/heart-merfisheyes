@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <title>FISHEYES</title>
+    <title>MERFISH👀</title>
 
     <link rel="stylesheet" href="src/ui/Overlay/Overlay.css">
     <link rel="stylesheet" href="index.css">
@@ -29,12 +29,12 @@
 
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
-    <script type="module" src="/src/main.js"></script>
 
     <script type="module">
         import { loadPrefixOptions, selectPrefix } from "/src/helpers/Prefix.js";
         import { toggleCellFilter, toggleGeneFilter, toggleButton } from "/src/helpers/ToggleFilters.js"
         import { toggleMode } from "/src/helpers/Filtering/Gene.js"
+
 
         $(function () {
             $(".navbar").load("/src/ui/Navbar/navbar.html", () => {
@@ -60,11 +60,13 @@
             })
         }, 0)
     </script>
+    <script type="module" src="/src/main.js"></script>
+
 </head>
 
 <body>
     <!-- navbar container -->
-    <nav class="sidenav navbar navbar-expand-lg navbar-dark bg-dark" data-mdb-sidenav-init data-mdb-right="true"></nav>
+    <nav class="sidenav navbar navbar-expand-lg navbar-dark" data-mdb-sidenav-init data-mdb-right="true"></nav>
     <!-- filter and toggles -->
     <div class="filter"></div>
 

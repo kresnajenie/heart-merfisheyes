@@ -62,7 +62,11 @@ export function createCellCheckboxes(cellTypesWithColors) {
     let divs = {};
 
     const checkboxes = document.getElementById('cellCheckboxes');
-
+    console.log(checkboxes); // Check if this logs the correct element or null
+    if (!checkboxes) {
+        console.error('Element with ID "cellCheckboxes" not found in the DOM.');
+        return;
+    }
     checkboxes.innerHTML = ''; // clear checkbox container
 
     // Sort cellTypesWithColors alphabetically by celltype
