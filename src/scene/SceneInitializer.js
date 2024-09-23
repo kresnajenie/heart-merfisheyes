@@ -10,10 +10,11 @@ import { isEqual } from 'lodash';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { ButtonState } from '../states/ButtonState.js';
 import { loading } from '../helpers/Loading.js';
-import { showCellFilters } from '../helpers/Filtering/Celltype.js';
+import { showCellFilters, updateCelltypeCheckboxes } from '../helpers/Filtering/Celltype.js';
 import { calculateGenePercentile, coolwarm, getGene, normalizeArray } from '../helpers/GeneFunctions.js';
 import { showGeneFilters, showSelectedGeneFilters } from '../helpers/Filtering/Gene.js';
 import { changeURL } from '../helpers/URL.js';
+import { updateBadge, updateCelltypeBadge } from '../ui/Showing/Showing.js';
 
 const url = new URL(window.location);
 const params = new URLSearchParams(url.search);
@@ -363,6 +364,15 @@ export class SceneInitializer {
 
         this.scene.add(this.instancedMesh);
         this.scene.add(this.instancedMeshUmap);
+
+        if (genes.length > 0) {
+            updateBadge("gene", genes)
+        } else {
+            updateBadge("celltype")
+        }
+
+        updateCelltypeBadge();
+        updateCelltypeCheckboxes();
     }
 
 
