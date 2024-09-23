@@ -17,6 +17,7 @@
     align-items: flex-start;
     overflow: hidden; /* Ensure content respects the border-radius */
     box-sizing: border-box;
+    transition: 0.1s ease-in-out;
 }
 
 
@@ -60,25 +61,21 @@
 }
 
 .top-controls {
-    height: 20px;
-    width: 50px; /* Start with a small width */
-    border-radius: 25px;
-    background-color: #8b8b8b;
-    cursor: grabbing;
     position: absolute;
-    top: 10px; /* Adjust top position as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    transition: width 0.1s ease-in-out, background-color 0.1s ease-in-out, transform 0.1s ease-in-out; /* Smooth transition for expanding, background color, and shrinking */
+    top: 10px;
+    left: 10px;
+    z-index: 11;
+
+    width: 100%;
 }
 
-.top-controls:hover {
-    width: 150px; /* Expand width when hovered */
-    background-color: #5e43f3;
-    transform: translateX(-50%) scale(1.2); /* Slightly scale down */
-
+.min_max_button {
+    filter: brightness(0) invert(1);
+    width: 20px;
+    cursor: pointer;
+    transition: 0.25s ease-out;
 }
 
-.top-controls:active {
-    transform: translateX(-50%) scale(0.8); /* Slightly scale down */
+.min_max_button:hover {
+    scale: 1.25;
 }
