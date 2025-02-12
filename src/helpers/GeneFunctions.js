@@ -62,22 +62,39 @@ export function coolwarm(value1, value2) {
         return interpolatePercentages(value1, value2);
     }
 }
-
 /**
- * Calculates the value at the 99th percentile of the given array.
+ * Calculates the value at the given percentile of the provided array.
  * @param {Array<number>} arr - The array of numerical values.
- * @returns {number} - The value at the 99th percentile.
+ * @param {number} percentile - The percentile to calculate (e.g., 0.99 for the 99th percentile).
+ * @returns {number} - The value at the specified percentile, or null if input is invalid.
  */
 export function calculateGenePercentile(arr, percentile) {
-    // Create a copy of the array and sort the copy
+    // Check if arr is a valid array and if percentile is a number between 0 and 1
+    if (!Array.isArray(arr) || typeof percentile !== 'number' || percentile < 0 || percentile > 1) {
+        console.error("Invalid input:", { arr, percentile });
+        return null;
+    }
+
+    // Create a copy of the array and sort it in ascending order
     const sortedArr = arr.slice().sort((a, b) => a - b);
+
+    // Handle edge cases where the array might be empty
+    if (sortedArr.length === 0) {
+        console.error("Array is empty.");
+        return null;
+    }
 
     // Calculate the index for the xth percentile
     const index = Math.floor(sortedArr.length * percentile) - 1;
 
-    // Return the value at the 99th percentile
+    // Ensure the index is within bounds
+    if (index < 0) return sortedArr[0];
+    if (index >= sortedArr.length) return sortedArr[sortedArr.length - 1];
+
+    // Return the value at the calculated index
     return sortedArr[index];
 }
+
 
 /**
  * Normalizes the values in the array to a range between 0 and 1.

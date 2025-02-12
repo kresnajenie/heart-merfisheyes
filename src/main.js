@@ -6,10 +6,10 @@ import { ApiState } from './states/ApiState.js';
 import { updateSelectedCelltype, updateSelectedGene } from './states/SelectedState.js';
 import { updateLoadingState } from './states/UIState.js';
 import { createLoadingIndicator } from './ui/Loading/Loading.js';
-import { createOverlay } from './ui/Overlay/Overlay.js';
+// import { createOverlay } from './ui/Overlay/Overlay.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    createOverlay();
+    // createOverlay();
     const loading = createLoadingIndicator();
 
     document.body.appendChild(loading);
@@ -24,10 +24,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         await loadItems();
         await loadGenes();
-        // console.log(ApiState.value.genes);
+        console.log(ApiState.value.genes);
 
-        // await loadGroups();
-        // console.log(ApiState.value.groups);
 
 
 

@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 const buttonData = {
-    dotSize: 5.00,
+    dotSize: 1.00,
     genePercentile: 0.9900,
     cameraPositionZ: 250,
     cameraPositionY: 0,

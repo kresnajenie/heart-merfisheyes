@@ -5,10 +5,14 @@ const params = new URLSearchParams(url.search);
 
 const apiData = {
     columns: [
-        'X_umap0_norm',
-        'X_umap1_norm',
-        'X_spatial0_norm',
-        'X_spatial1_norm',
+        // 'X_umap0_norm',
+        // 'X_umap1_norm',
+        // 'X_spatial0_norm',
+        // 'X_spatial1_norm',
+        // 'X_spatial2_norm',
+        'X_spateo0_norm',
+        'X_spateo1_norm',
+        'X_spateo2_norm',
         'clusters',
     ],
 

@@ -1,5 +1,5 @@
 // /src/helpers/LoadFunctions.js
-import { fetchDataFromAPI } from './APIClient';
+import { fetchDataFromAPI, fetchConstAPI } from './APIClient';
 import { updateDataPalette, updateGenes, ApiState, updateGroups } from '../states/ApiState';
 import { updateDataItems } from '../states/MatrixState';
 
@@ -8,7 +8,7 @@ const prefix = ApiState.value.prefix;
 export async function loadPallete() {
     const pal_col = ApiState.value.palleteColumn;
     try {
-        const data = await fetchDataFromAPI(pal_col, prefix); 
+        const data = await fetchConstAPI(pal_col, prefix); 
         // Remove the first element
         console.log(data)
 
@@ -17,13 +17,13 @@ export async function loadPallete() {
 
         // Iterate over the list and split each string to create key-value pairs
         data.forEach(item => {
-            console.log(item)
+            // console.log(item)
             let [key, value] = item.split(':');
             key = key.replace(/'/g, '').trim();  // Remove quotes and trim whitespace
             value = value.replace(/'/g, '').trim();  // Remove quotes and trim whitespace
             dictionary[key] = value;
         });
-        console.log(dictionary)
+        // console.log(dictionary)
 
         updateDataPalette(dictionary);
 
@@ -34,7 +34,7 @@ export async function loadPallete() {
 
 export async function loadGenes() {
     try {
-        const data = await fetchDataFromAPI("genes", prefix); 
+        const data = await fetchConstAPI("genes", prefix); 
 
         updateGenes(data);
     } catch (error) {
@@ -51,13 +51,15 @@ export async function loadItems() {
         // Fetch data for all columns asynchronously
         const results = await Promise.all(columns.map(col => fetchDataFromAPI(col, prefix)));
         
-        console.log("Load Results", results);
+        // console.log("Load Results", results);
         columns.forEach((col, index) => {
-            // console.log(col);
+            console.log(col);
+            console.log(index)
+            console.log(results[index])
             transformedData[col] = results[index];
         });
 
-        console.log("trfdata", transformedData);
+        // console.log("trfdata", transformedData);
     
         // Assuming 'clusters' is a valid key in your transformedData
         // Make sure this logic aligns with how your data is structured
