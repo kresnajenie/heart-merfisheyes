@@ -92,7 +92,7 @@ export function calculateGenePercentile(arr, percentile) {
     if (index >= sortedArr.length) return sortedArr[sortedArr.length - 1];
 
     // Return the value at the calculated index
-    return sortedArr[index];
+    return sortedArr[index] === 0 ? 1 : sortedArr[index];
 }
 
 

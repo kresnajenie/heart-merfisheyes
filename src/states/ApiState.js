@@ -15,9 +15,20 @@ const apiData = {
         'X_spateo2_norm',
         'clusters',
     ],
+    columns2: [
+        // 'X_umap0_norm',
+        // 'X_umap1_norm',
+        'X_spatial0_norm',
+        'X_spatial1_norm',
+        // 'X_spatial2_norm',
+        // 'X_spateo0_norm',
+        // 'X_spateo1_norm',
+        // 'X_spateo2_norm',
+        'clusters',
+    ],
 
-    prefixOptions: ["c5sal", "c5ptb","8week", "4week"],
-    prefix: params.has("prefix") ? params.get("prefix") : "8week",
+    prefixOptions: ["3D Heart", "2D Heart"],
+    prefix: params.has("prefix") ? params.get("prefix") : "3D Heart",
     pallete: {},
     listPalette: [], // list version of palette
     palleteColumn: "clusters_pal",

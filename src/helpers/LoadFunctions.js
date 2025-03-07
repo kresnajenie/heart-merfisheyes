@@ -3,7 +3,7 @@ import { fetchDataFromAPI, fetchConstAPI } from './APIClient';
 import { updateDataPalette, updateGenes, ApiState, updateGroups } from '../states/ApiState';
 import { updateDataItems } from '../states/MatrixState';
 
-const prefix = ApiState.value.prefix;
+export const prefix = ApiState.value.prefix;
 
 export async function loadPallete() {
     const pal_col = ApiState.value.palleteColumn;
@@ -43,7 +43,7 @@ export async function loadGenes() {
 }
 
 export async function loadItems() {
-    const columns = ApiState.value.columns;
+    const columns = prefix === "3D Heart" ? ApiState.value.columns : ApiState.value.columns2;
     let transformedData = {};
     let jsonData = [];
 

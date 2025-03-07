@@ -2,6 +2,7 @@
 // Function to fetch data from the API and return an Observable using async/await
 
 import pako from "pako";
+import { ApiState } from "../states/ApiState";
 
 export async function fetchDataFromAPI(columnName, prefix) {
     // const response = await fetch(`http://localhost:8000/getdata?data=${prefix}&gene=${columnName}`);
@@ -10,9 +11,11 @@ export async function fetchDataFromAPI(columnName, prefix) {
     // const response = await fetch(`http://localhost:8000/get-gene-values?gene=${columnName}&dbname=genedb&dbcollection=${prefix}&username=roy&csv_filename=${prefix}_matrix.csv`);
     // const response = await fetch(`https://quan-be.merfisheyes.com/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
     // const response = await fetch(`http://localhost:8000/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
+    const prefixx = ApiState.value.prefix;
+    let pref =  prefixx === "3D Heart" ? "3dheart_cextra" : "2dheart";
 
     const response = await fetch(
-        `https://quan-be.merfisheyes.com/get-gz-file?dbname=quandb&dbcollection=3dheartn&username=quan&csv_filename=3dheartn_matrix.csv&gene=${columnName}`
+        `https://quan-be.merfisheyes.com/get-gz-file?dbname=quandb_new&dbcollection=${pref}&username=quan&csv_filename=${pref}_matrix.csv&gene=${columnName}`
     );
 
     if (!response.ok) {
@@ -25,7 +28,7 @@ export async function fetchDataFromAPI(columnName, prefix) {
         const compressedData = await response.arrayBuffer();
         const data = pako.inflate(compressedData, { to: "string" });
 
-        console.log("Raw Data:", data); // Debugging
+        // console.log("Raw Data:", data); // Debugging
 
         // ✅ Trim, Split by Comma, Convert to Numbers
         const parsedData = data
@@ -36,8 +39,9 @@ export async function fetchDataFromAPI(columnName, prefix) {
                 const num = parseFloat(value); 
                 return isNaN(num) ? value : num; // Convert to number if possible
             });
-
-        console.log("Parsed Data:", parsedData); // Debugging
+        if (columnName == "clusters") {
+            console.log("Parsed Data:", parsedData); // Debugging
+        }
         return parsedData;
 
     } catch (error) {
@@ -48,7 +52,11 @@ export async function fetchDataFromAPI(columnName, prefix) {
 }
 
 export async function fetchConstAPI(columnName, prefix) {
-    const response = await fetch(`https://quan-be.merfisheyes.com/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
+    const prefixx = ApiState.value.prefix;
+    let pref =  prefixx === "3D Heart" ? "3dheart_cextra" : "2dheart";
+
+    // const response = await fetch(`https://quan-be.merfisheyes.com/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
+    const response = await fetch(`https://quan-be.merfisheyes.com/get-gene-values?gene=${columnName}&dbname=quandb_new&dbcollection=${pref}&username=quan&csv_filename=${pref}_matrix.csv`);
 
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
@@ -59,8 +67,17 @@ export async function fetchConstAPI(columnName, prefix) {
     if (data === undefined || data.gene_values == undefined) {
         return '[]';
     }
+    let _d;
+    if (columnName == "clusters_pal") {
+        _d = data.gene_values.split(',')
+        .filter(item => item !== "")
+        .map(item => item.slice(0, -3)); // Removes the last two characters
+    } else {
+        _d = data.gene_values.split(',')
+        .filter(item => item !== "")
+    }
 
-    let _d = data.gene_values.split(',').filter(item => item!== "");
+
 
     _d.shift()
     return _d;

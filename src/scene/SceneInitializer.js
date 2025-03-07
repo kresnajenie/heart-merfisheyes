@@ -6,6 +6,7 @@ import { SceneState } from '../states/SceneState.js';
 import { UIState, updateLoadingState } from '../states/UIState.js';
 import { SelectedState } from '../states/SelectedState.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 import { isEqual } from 'lodash';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { ButtonState } from '../states/ButtonState.js';
@@ -51,10 +52,32 @@ export class SceneInitializer {
         this.container.appendChild(this.renderer.domElement);
     
         // Set up the orbit controls
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.25;
-        this.controls.update();
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        // this.controls.enableDamping = true;
+        // this.controls.dampingFactor = 0.25;
+        // this.controls.update();
+
+        this.controls = new TrackballControls(this.camera, this.renderer.domElement);
+
+        // Configure TrackballControls
+        this.controls.rotateSpeed = 2.0; // Speed of rotation
+        this.controls.zoomSpeed = 0.5; // Speed of zooming
+        this.controls.panSpeed = 0.8; // Speed of panning
+        this.controls.noZoom = false; // Allow zooming
+        this.controls.noPan = false; // Allow panning
+        this.controls.staticMoving = false; // Smooth movement
+        this.controls.dynamicDampingFactor = 0.2; // Damping factor for smoothness
+
+        // Set panning to left mouse button
+        if (ApiState.value.prefix == "2D Heart") {
+            this.controls.mouseButtons = {
+                LEFT: THREE.MOUSE.PAN,
+                MIDDLE: THREE.MOUSE.DOLLY,
+                RIGHT: THREE.MOUSE.ROTATE
+            };
+        } else {
+            this.controls.enableRotate = true;
+        }
     
         // Get the data from the state and filter out clusters with value "remove"
         // Filter out clusters with value "remove" from jsonData and count1
@@ -75,7 +98,15 @@ export class SceneInitializer {
     
         // Define the geometry and material
         // const circleGeometry = new THREE.CircleGeometry(0.5, 16); // Circle with radius 0.5 and 16 segments
-        const circleGeometry = new THREE.SphereGeometry(0.2, 4, 4); // Circle with radius 0.5 and 16 segments
+
+        let circleGeometry;
+        if (ApiState.value.prefix == "2D Heart") {
+
+            circleGeometry = new THREE.CircleGeometry(0.2, 16, 16); // Circle with radius 0.5 and 16 segments
+        } else {
+
+            circleGeometry = new THREE.SphereGeometry(0.2, 4, 4); // Circle with radius 0.5 and 16 segments
+        }
         const material = new THREE.MeshBasicMaterial();
     
         // Call setupLOD with the initial data
@@ -121,16 +152,16 @@ export class SceneInitializer {
             // Here you can handle the update, e.g., update UI components to reflect the new items array
         });
 
-        // ApiState.pipe(
-        //     map(state => state.prefix),
-        //     distinctUntilChanged((prev, curr) => isEqual(prev, curr))
-        // ).subscribe(items => {
-        //     // console.log("Prefix changed:", items);
-        //     // console.log(ApiState.value.prefix);
+        ApiState.pipe(
+            map(state => state.prefix),
+            distinctUntilChanged((prev, curr) => isEqual(prev, curr))
+        ).subscribe(items => {
+            // console.log("Prefix changed:", items);
+            // console.log(ApiState.value.prefix);
 
-        //     const prefix = document.getElementById("dropdownMenuButton");
-        //     prefix.innerText = ApiState.value.prefix;
-        // });
+            const prefix = document.getElementById("dropdownMenuButton");
+            prefix.innerText = ApiState.value.prefix;
+        });
 
         UIState.pipe(
             map(state => state.isLoading),
@@ -357,12 +388,21 @@ export class SceneInitializer {
         let color;
     
         data.forEach((point, i) => {
-            // Set the position
-            dummy.position.set(
-                point["X_spateo1_norm"] * 200,
-                point["X_spateo2_norm"] * -200,
-                point["X_spateo0_norm"] * 200
-            );
+            if (ApiState.value.prefix == "2D Heart") {
+                dummy.position.set(
+                    point["X_spatial0_norm"]*200,
+                    point["X_spatial1_norm"] *200,
+                    0
+                );
+            } else {
+                // Set the position
+                dummy.position.set(
+                    point["X_spateo1_norm"] * 200,
+                    point["X_spateo2_norm"] * -200,
+                    point["X_spateo0_norm"] * 200
+                );
+            }
+
     
             // Apply scaling
             dummy.scale.set(scale, scale, scale);
