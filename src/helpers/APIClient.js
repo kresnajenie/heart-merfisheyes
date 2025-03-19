@@ -12,7 +12,7 @@ export async function fetchDataFromAPI(columnName, prefix) {
     // const response = await fetch(`https://quan-be.merfisheyes.com/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
     // const response = await fetch(`http://localhost:8000/get-gene-values?gene=${columnName}&dbname=quandb&dbcollection=heart&username=quan&csv_filename=heart_matrix.csv`);
     const prefixx = ApiState.value.prefix;
-    let pref =  prefixx === "3D Heart" ? "3dheart_cextra" : "2dheart";
+    let pref =  prefixx === "3D Heart" ? "3dheart_cextra" : prefixx === "2D3D Heart" ? "2d3dheart" : "2dheart";
 
     const response = await fetch(
         `https://quan-be.merfisheyes.com/get-gz-file?dbname=quandb_new&dbcollection=${pref}&username=quan&csv_filename=${pref}_matrix.csv&gene=${columnName}`

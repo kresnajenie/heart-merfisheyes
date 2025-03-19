@@ -10,9 +10,15 @@ export function loadPrefixOptions() {
     const prefixDropdown = document.querySelector('#prefix-dropdown-container .dropdown-menu');
 
     for (let i = 0; i < prefixOptions.length; i++) {
-        const prefixItem = document.createElement('p');
-        prefixItem.innerHTML = `<a class="dropdown-item">${prefixOptions[i]}</a>`
-
+        const prefixItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.className = 'dropdown-item';
+        link.textContent = prefixOptions[i];
+        link.style.whiteSpace = 'normal';
+        link.style.wordWrap = 'break-word';
+        link.style.overflowWrap = 'break-word';
+        
+        prefixItem.appendChild(link);
         prefixDropdown.appendChild(prefixItem);
     }
 }

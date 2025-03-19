@@ -193,6 +193,7 @@ export const clearGenes = () => {
 export const showGeneFilters = () => {
 
     const geneFilters = document.getElementById("geneFilters");
+    if (!geneFilters) return; // Add null check to prevent errors
     geneFilters.innerHTML = "";
 
     // if there are celltype filters

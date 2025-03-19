@@ -281,6 +281,7 @@ export const clearCells = () => {
 export const showCellFilters = () => {
 
     const cellFilters = document.getElementById("cellFilters");
+    if (!cellFilters) return; // Add null check to prevent errors
     cellFilters.innerHTML = "";
 
     // if there are celltype filters

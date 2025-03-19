@@ -23,8 +23,20 @@
     <div id="prefix-dropdown-container">
         <div class="dropdown dropdown-center">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-expanded="false" title="Set the prefix."></button>
-            <ul class="dropdown-menu"></ul>
+                data-bs-toggle="dropdown" aria-expanded="false" title="Set the prefix." 
+                style="white-space: normal; min-width: 120px; text-align: left; word-wrap: break-word; overflow-wrap: break-word;"></button>
+            <ul class="dropdown-menu" style="min-width: 120px;"></ul>
+            <style>
+                .dropdown-item {
+                    white-space: normal !important;
+                    word-wrap: break-word !important;
+                    overflow-wrap: break-word !important;
+                    text-align: left !important;
+                }
+                .dropdown-menu p {
+                    margin-bottom: 0 !important;
+                }
+            </style>
         </div>
     </div>
 </div>

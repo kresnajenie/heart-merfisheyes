@@ -27,7 +27,7 @@ const apiData = {
         'clusters',
     ],
 
-    prefixOptions: ["3D Heart", "2D Heart"],
+    prefixOptions: ["3D Heart", "2D Heart", "2D3D Heart"],
     prefix: params.has("prefix") ? params.get("prefix") : "3D Heart",
     pallete: {},
     listPalette: [], // list version of palette
